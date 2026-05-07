@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+
+  --color-surface-container-low: #F3F1EB;
+  --color-on-secondary-fixed-variant: #1A1A1A;
+  --color-primary-fixed: #E8E4DA;
+  --color-on-tertiary-fixed: #002111;
+  --color-on-background: #1A1A1A;
+  --color-primary-container: #1A1A1A;
+  --color-on-primary: #ffffff;
+  --color-surface-tint: #1A1A1A;
+  --color-surface: #F9F7F2;
+  --color-on-surface-variant: #666666;
+  --color-on-secondary: #ffffff;
+  --color-on-error-container: #93000a;
+  --color-on-secondary-container: #1A1A1A;
+  --color-background: #F9F7F2;
+  --color-tertiary-fixed: #C4A484;
+  --color-secondary-fixed-dim: #E8E4DA;
+  --color-on-tertiary-container: #ffffff;
+  --color-surface-container-high: #E8E4DA;
+  --color-on-tertiary-fixed-variant: #1A1A1A;
+  --color-on-primary-fixed-variant: #1A1A1A;
+  --color-surface-container: #E8E4DA;
+  --color-error: #ba1a1a;
+  --color-outline-variant: #1A1A1A;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #C4A484;
+  --color-tertiary-fixed-dim: #C4A484;
+  --color-tertiary: #C4A484;
+  --color-primary: #1A1A1A;
+  --color-on-error: #ffffff;
+  --color-secondary-container: #E8E4DA;
+  --color-inverse-surface: #1A1A1A;
+  --color-on-primary-fixed: #1A1A1A;
+  --color-on-primary-container: #ffffff;
+  --color-inverse-primary: #E8E4DA;
+  --color-surface-variant: #E8E4DA;
+  --color-on-secondary-fixed: #1A1A1A;
+  --color-surface-dim: #E8E4DA;
+  --color-surface-container-highest: #E8E4DA;
+  --color-secondary: #1A1A1A;
+  --color-surface-container-lowest: #ffffff;
+  --color-on-surface: #1A1A1A;
+  --color-secondary-fixed: #E8E4DA;
+  --color-error-container: #ffdad6;
+  --color-primary-fixed-dim: #E8E4DA;
+  --color-outline: #1A1A1A;
+  --color-surface-bright: #F9F7F2;
+  --color-inverse-on-surface: #F9F7F2;
+}
+
+@layer base {
+  body {
+    @apply bg-surface text-on-surface font-sans antialiased;
+  }
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cdc3d2;
+  border-radius: 10px;
+}
