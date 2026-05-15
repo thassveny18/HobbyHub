@@ -3,7 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { supabase } from './lib/supabase';
+import AuthView from './components/AuthView';
 import { 
   LayoutDashboard, 
   CalendarDays, 
@@ -37,7 +39,8 @@ import {
   Save,
   Eye,
   MoreHorizontal,
-  ChevronDown
+  ChevronDown,
+  LogOut
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -54,6 +57,27 @@ type Tab = 'dashboard' | 'classes' | 'students' | 'payments' | 'messages';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
+  const [session, setSession] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setLoading(false);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+  };
 
   const renderContent = () => {
     switch (activeTab) {
@@ -65,6 +89,21 @@ export default function App() {
       default: return <DashboardView />;
     }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-surface flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <HubIcon />
+          <p className="text-[10px] uppercase font-bold tracking-[0.4em] text-primary/40 animate-pulse">Initializing System...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!session) {
+    return <AuthView />;
+  }
 
   return (
     <div className="flex min-h-screen bg-surface">
@@ -113,7 +152,7 @@ export default function App() {
 
         <div className="mt-auto space-y-4 pt-8 border-t border-primary/10">
           <SidebarItem icon={<Settings size={18} />} label="Settings" />
-          <SidebarItem icon={<HelpCircle size={18} />} label="Support" />
+          <SidebarItem icon={<LogOut size={18} />} label="Logout" onClick={handleLogout} />
           <p className="text-[10px] uppercase font-bold tracking-widest text-on-surface-variant/40 pt-4">© 2024 Monolith Press</p>
         </div>
       </aside>
